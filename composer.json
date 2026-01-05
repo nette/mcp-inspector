@@ -1,0 +1,50 @@
+{
+	"name": "nette/mcp-inspector",
+	"description": "🔭 MCP server for Nette application introspection",
+	"keywords": ["nette", "mcp", "model-context-protocol", "introspection", "di", "dependency-injection", "ai", "llm"],
+	"homepage": "https://nette.org",
+	"license": ["BSD-3-Clause", "GPL-2.0-only", "GPL-3.0-only"],
+	"authors": [
+		{
+			"name": "David Grudl",
+			"homepage": "https://davidgrudl.com"
+		}
+	],
+	"require": {
+		"php": "8.2 - 8.5",
+		"mcp/sdk": "^0.2",
+		"nette/di": "^3.2",
+		"nette/bootstrap": "^3.2",
+		"nette/neon": "^3.4",
+		"nyholm/psr7": "^1.8",
+		"nyholm/psr7-server": "^1.1"
+	},
+	"require-dev": {
+		"nette/tester": "^2.5.2",
+		"tracy/tracy": "^2.11",
+		"mockery/mockery": "^1.6@stable",
+		"phpstan/phpstan-nette": "^2.0@stable"
+	},
+	"autoload": {
+		"psr-4": {
+			"Nette\\": "src"
+		}
+	},
+	"bin": [
+		"bin/mcp-inspector"
+	],
+	"scripts": {
+		"phpstan": "phpstan analyse",
+		"tester": "tester tests -s -C"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0-dev"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"php-http/discovery": true
+		}
+	}
+}

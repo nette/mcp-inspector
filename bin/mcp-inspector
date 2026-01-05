@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use Nette\McpInspector\ServerFactory;
+
+// Find Composer autoloader
+$autoloadPaths = [
+	__DIR__ . '/../vendor/autoload.php',      // Standalone
+	__DIR__ . '/../../../autoload.php',        // Installed as dependency
+];
+
+foreach ($autoloadPaths as $path) {
+	if (file_exists($path)) {
+		require $path;
+		break;
+	}
+}
+
+$server = ServerFactory::create();
+$server->runCli();
