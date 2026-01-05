@@ -6,7 +6,7 @@ namespace Nette\McpInspector;
 
 use Nette\McpInspector\Bridge\BootstrapBridge;
 use Nette\McpInspector\Toolkits\DatabaseToolkit;
-use Nette\McpInspector\Toolkits\DiToolkit;
+use Nette\McpInspector\Toolkits\DIToolkit;
 use Nette\McpInspector\Toolkits\RouterToolkit;
 use Nette\Neon\Neon;
 
@@ -27,6 +27,16 @@ class ServerFactory
 		);
 
 		$server = new Server;
+
+		// Built-in toolkits
+		$toolkits = [
+			DIToolkit::tryCreate($bridge),
+			DatabaseToolkit::tryCreate($bridge),
+			RouterToolkit::tryCreate($bridge),
+		];
+		foreach (array_filter($toolkits) as $toolkit) {
+			$server->addToolkit($toolkit);
+		}
 
 		// Custom user toolkits
 		foreach ($config['toolkits'] ?? [] as $class) {

@@ -20,6 +20,9 @@
 		"nyholm/psr7-server": "^1.1"
 	},
 	"require-dev": {
+		"nette/application": "^3.2",
+		"nette/database": "^3.2",
+		"nette/routing": "^3.1",
 		"nette/tester": "^2.5.2",
 		"tracy/tracy": "^2.11",
 		"mockery/mockery": "^1.6@stable",
