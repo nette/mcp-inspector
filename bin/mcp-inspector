@@ -1,0 +1,62 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+// Pre-parse --project so we can prefer the project's autoloader over our own.
+// (When installed as a dev dependency via path repo + junction, __DIR__ resolves
+// through the junction and our standalone vendor/autoload.php would be picked up
+// first, polluting %vendorDir% / %wwwDir% autodetection.)
+$argv = $_SERVER['argv'];
+$projectDir = null;
+foreach ($argv as $arg) {
+	if ($arg === '--project' || $arg === '-p') {
+		$projectDir = next($argv);
+		break;
+	} elseif (str_starts_with($arg, '--project=')) {
+		$projectDir = substr($arg, 10);
+		break;
+	}
+}
+$projectDir ??= getcwd();
+
+$autoloadPaths = [
+	$projectDir . '/vendor/autoload.php',     // Project (preferred)
+	__DIR__ . '/../vendor/autoload.php',      // Standalone fallback
+	__DIR__ . '/../../../autoload.php',        // Installed as dependency
+];
+
+foreach ($autoloadPaths as $path) {
+	if (file_exists($path)) {
+		require $path;
+		break;
+	}
+}
+
+use Nette\CommandLine\Parser;
+use Nette\McpInspector\ServerFactory;
+
+$cli = new Parser('
+MCP Inspector — Nette application introspection over Model Context Protocol.
+
+Usage: mcp-inspector [options]
+
+Options:
+    -p, --project <path>      Path to project root (defaults to current directory)
+    -b, --bootstrap <path>    Bootstrap script returning Configurator (defaults to <project>/mcp-bootstrap.php)
+    -h, --help                Show this help and exit
+
+Project must contain mcp-bootstrap.php that returns a Closure producing
+Nette\\Bootstrap\\Configurator. The script is responsible for requiring its own autoloader.
+');
+
+$args = $cli->parse();
+
+if ($args['--help']) {
+	$cli->help();
+	exit(0);
+}
+
+$factory = new ServerFactory(
+	projectDir: $args['--project'] ?? getcwd(),
+	bootstrapPath: $args['--bootstrap'] ?? 'mcp-bootstrap.php',
+);
+$factory->create()->runCli();
