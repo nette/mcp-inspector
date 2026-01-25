@@ -5,6 +5,7 @@ use:
 typeAnalysis: phpstan
 
 paths:
+	- src
 	- tests
 
 excludePaths:
@@ -13,3 +14,11 @@ excludePaths:
 fileExtensions:
 	- php
 	- phpt
+
+overrides:
+	-
+		paths: [src]
+		nameResolution: certain
+		use:
+			- compilerOptimizations
+			- deprecations
