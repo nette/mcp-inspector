@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+// Pre-parse --project so we can register the project's autoloader last: Composer prepends
+// autoloaders, so the last registered one wins, which keeps %vendorDir% / %wwwDir% autodetection
+// and the Nette libraries pointing at the project. Our own autoloader is registered before it,
+// as the inspector may live in a separate vendor directory (e.g. a tools subproject).
+$argv = $_SERVER['argv'];
+$projectDir = null;
+foreach ($argv as $arg) {
+	if ($arg === '--project' || $arg === '-p') {
+		$projectDir = next($argv);
+		break;
+	} elseif (str_starts_with($arg, '--project=')) {
+		$projectDir = substr($arg, 10);
+		break;
+	}
+}
+$projectDir ??= getcwd();
+
+$ownAutoload = realpath(__DIR__ . '/../../../autoload.php') // installed as dependency
+	?: realpath(__DIR__ . '/../vendor/autoload.php'); // standalone
+$projectAutoload = realpath($projectDir . '/vendor/autoload.php');
+
+if ($ownAutoload && $ownAutoload !== $projectAutoload) {
+	require $ownAutoload;
+}
+if ($projectAutoload) {
+	require $projectAutoload;
+}
+
+exit((new Nette\McpInspector\Cli\Console)->run($_SERVER['argv']));
