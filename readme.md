@@ -11,15 +11,19 @@ database schema and logs.
 
 ```bash
 composer require --dev nette/mcp-inspector
+vendor/bin/mcp-inspector init
 ```
 
-Create `mcp-bootstrap.php` in the project root (see below) and start the server from a short
-PHP script registered in your MCP client:
+`init` creates three files and never overwrites an existing one:
 
-```php
-require __DIR__ . '/vendor/autoload.php';
-Nette\McpInspector\Inspector::createServer(__DIR__)->run();
-```
+| File | Purpose |
+|---|---|
+| `mcp-bootstrap.php` | returns your application's `Nette\Bootstrap\Configurator` (see below) |
+| `config/mcp-inspector.neon` | the inspector's configuration: what the agent may do |
+| `.mcp.json` | registers the `nette-inspector` server for Claude Code (an existing file is extended); `.cursor/mcp.json` and `.vscode/mcp.json` get the same entry when those directories exist |
+
+Restart the Claude Code session afterwards. Use `--php="ddev exec php"` when PHP does not
+run on the host, `--project=PATH` when the project is not the current directory.
 
 ### mcp-bootstrap.php
 
@@ -65,7 +69,7 @@ the development ones.
 
 The inspector is itself a small Nette application: this file is the DI configuration of its own
 container, with the usual `parameters:`, `services:` and one section per toolkit. Every section
-is optional; a missing file means the defaults. A full example, spelling out the defaults:
+is optional; a missing file means the defaults. This is the file `init` generates:
 
 ```neon
 # Configuration of nette/mcp-inspector: a Nette DI config for the inspector's own container.
@@ -110,6 +114,22 @@ are therefore picked up live, without restarting Claude Code or the MCP server. 
 
 If a rebuild fails (e.g. a typo in your config), the inspector keeps serving the last-known-good
 container and adds a `_warning` field to tool results so you immediately see the failure message.
+
+### CLI
+
+```
+mcp-inspector [options]                       starts the MCP server (stdio)
+mcp-inspector init [options]                  generates the project files
+mcp-inspector call <tool> [<json>] [options]  calls one tool and prints the result
+```
+
+`call` runs a tool exactly as the MCP client would, without a client, so you can try a tool or
+check your bootstrap and configuration from the terminal.
+
+- `--project=PATH` — project root (defaults to the current working directory)
+- `--bootstrap=PATH` — bootstrap script (defaults to `<project>/mcp-bootstrap.php`)
+- `--config=PATH` — inspector configuration (defaults to `<project>/config/mcp-inspector.neon`)
+- `--php=COMMAND` — PHP command written to `.mcp.json` by `init` (defaults to `php`)
 
 ## Custom toolkits
 
