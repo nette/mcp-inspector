@@ -7,6 +7,14 @@ database schema and logs.
 > ⚠️ **Development tool only.** The inspector exposes the DI graph, configuration and data of
 > whatever application it is pointed at. Point it at development environments and development data only.
 
+## Tools
+
+### Application
+
+| Tool | Description |
+|------|-------------|
+| `app_get_info` | PHP and Nette versions, installed Nette packages, directories and database driver; the agent is told to call it first |
+
 ## Setup
 
 ```bash
@@ -124,7 +132,11 @@ mcp-inspector call <tool> [<json>] [options]  calls one tool and prints the resu
 ```
 
 `call` runs a tool exactly as the MCP client would, without a client, so you can try a tool or
-check your bootstrap and configuration from the terminal.
+check your bootstrap and configuration from the terminal:
+
+```bash
+vendor/bin/mcp-inspector call app_get_info
+```
 
 - `--project=PATH` — project root (defaults to the current working directory)
 - `--bootstrap=PATH` — bootstrap script (defaults to `<project>/mcp-bootstrap.php`)
