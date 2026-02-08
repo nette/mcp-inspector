@@ -46,6 +46,7 @@ final class Inspector
 		$class = $loader->load(function (Compiler $compiler) use ($projectDir, $bootstrapPath, $configFile): ?string {
 			$compiler->addConfig(['parameters' => ['projectDir' => $projectDir]]);
 			$compiler->addExtension('inspector', new InspectorExtension($projectDir, $bootstrapPath));
+			$compiler->addExtension('application', new Application\ApplicationExtension);
 			if (is_file($configFile)) {
 				try {
 					$compiler->loadConfig($configFile);
