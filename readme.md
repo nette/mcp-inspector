@@ -24,6 +24,25 @@ database schema and logs.
 
 Presenters are looked up in the Composer PSR-4 directories of the mapped namespaces and in `%appDir%`.
 
+### Router
+
+| Tool | Description |
+|------|-------------|
+| `router_get_routes` | List all registered routes with masks, defaults and module prefixes |
+| `router_match_url` | Match a URL to presenter/action and parameters (e.g. `/article/123`) |
+| `router_generate_url` | Generate the URL for presenter/action, like `{link}` in templates (e.g. `Article:show`, `{"id": 5}`) |
+
+The inspector runs without an HTTP request, so the application cannot detect its own address the way
+it does on the web. Tell it in the application's configuration (`nette/http` 3.4):
+
+```neon
+http:
+	baseUrl: https://example.com/
+```
+
+Without it `router_generate_url` reports an error saying so, and relative URLs passed to
+`router_match_url` are matched against `http://localhost/`.
+
 ## Setup
 
 ```bash
@@ -144,7 +163,7 @@ mcp-inspector call <tool> [<json>] [options]  calls one tool and prints the resu
 check your bootstrap and configuration from the terminal:
 
 ```bash
-vendor/bin/mcp-inspector call app_get_info
+vendor/bin/mcp-inspector call router_match_url '{"url": "/article/123"}'
 ```
 
 - `--project=PATH` — project root (defaults to the current working directory)
