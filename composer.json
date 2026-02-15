@@ -21,6 +21,8 @@
 	},
 	"require-dev": {
 		"nette/application": "^3.3",
+		"nette/http": "^3.3",
+		"nette/routing": "^3.1",
 		"nette/tester": "^2.5",
 		"phpstan/phpstan": "^2.1",
 		"phpstan/extension-installer": "^1.4",
