@@ -8,6 +8,10 @@ use Nette\McpInspector\ServerFactory;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
 
+if (class_exists(\Tracy\Debugger::class)) {
+	\Tracy\Debugger::$showBar = false;
+}
+
 $psr17 = new Psr17Factory;
 $creator = new ServerRequestCreator($psr17, $psr17, $psr17, $psr17);
 $request = $creator->fromGlobals();
