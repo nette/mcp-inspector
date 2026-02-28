@@ -49,6 +49,7 @@ final class Inspector
 			$compiler->addExtension('application', new Application\ApplicationExtension);
 			$compiler->addExtension('presenters', new Presenters\PresentersExtension);
 			$compiler->addExtension('router', new Router\RouterExtension);
+			$compiler->addExtension('database', new Database\DatabaseExtension);
 			if (is_file($configFile)) {
 				try {
 					$compiler->loadConfig($configFile);
