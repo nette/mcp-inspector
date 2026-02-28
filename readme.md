@@ -43,6 +43,25 @@ http:
 Without it `router_generate_url` reports an error saying so, and relative URLs passed to
 `router_match_url` are matched against `http://localhost/`.
 
+### Database
+
+| Tool | Description |
+|------|-------------|
+| `db_get_tables` | List tables and views |
+| `db_get_columns` | Columns of a table: types, nullability, defaults, primary and foreign keys |
+| `db_get_relationships` | Foreign key relationships between all tables (belongsTo, hasMany) |
+| `db_get_indexes` | Indexes of a table |
+| `db_query` | Run a single SQL statement with values bound to `?` placeholders; read-only by default (see below) |
+| `db_explain_query` | Run EXPLAIN on a SELECT query |
+
+The only security question is whether the agent may modify data, and by default it may not
+(`database: readOnly: true`): `db_query` accepts only `SELECT`, `SHOW`, `EXPLAIN`, `DESCRIBE`, `WITH`,
+`VALUES` and `TABLE` statements (single statement, no `INTO OUTFILE`), and additionally runs them
+inside a read-only transaction (`START TRANSACTION READ ONLY` on MySQL and PostgreSQL, `PRAGMA query_only`
+on SQLite), so the database itself rejects anything the validator would miss; other drivers rely on
+the validator alone. With `readOnly: false`
+any statement runs. Values of columns whose names suggest secrets (`password`, `token`, …) are masked.
+
 ## Setup
 
 ```bash
@@ -121,6 +140,13 @@ inspector:
 	mask: [password, passwd, pass, pwd, secret, token, api_key, apikey, credential, credentials, auth, dsn]
 	# text appended to the instructions the agent reads on connect, e.g. workflows of your custom toolkits
 	instructions: ''
+
+database:
+	# true: only SELECT-like statements, run in a read-only transaction
+	# false: any statement, the agent can modify data
+	readOnly: true
+	# maximum number of rows returned by db_query
+	rowLimit: 100
 ```
 
 The inspector reads this file itself; do not add it to the application's configs. Changes take

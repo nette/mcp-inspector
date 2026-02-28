@@ -21,6 +21,7 @@
 	},
 	"require-dev": {
 		"nette/application": "^3.3",
+		"nette/database": "^3.2",
 		"nette/http": "^3.3",
 		"nette/routing": "^3.1",
 		"nette/tester": "^2.5",

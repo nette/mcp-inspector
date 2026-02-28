@@ -30,6 +30,13 @@ final class Installer
 			# text appended to the instructions the agent reads on connect, e.g. workflows of your custom toolkits
 			instructions: ''
 
+		database:
+			# true: only SELECT-like statements, run in a read-only transaction
+			# false: any statement, the agent can modify data
+			readOnly: true
+			# maximum number of rows returned by db_query
+			rowLimit: 100
+
 		NEON;
 
 	private const ServerName = 'nette-inspector';
