@@ -24,6 +24,20 @@ database schema and logs.
 
 Presenters are looked up in the Composer PSR-4 directories of the mapped namespaces and in `%appDir%`.
 
+### DI container
+
+| Tool | Description |
+|------|-------------|
+| `di_get_services` | List services with types, tags, aliases and autowiring, optionally filtered by name or type |
+| `di_get_service` | Details of one service, including whether it has been created |
+| `di_find_by_type` | Services implementing a class or interface |
+| `di_find_by_tag` | Services carrying a tag, with the tag values |
+| `di_get_parameter_names` | Parameter names, nested ones in dotted notation (`database.default.dsn`) |
+| `di_get_parameter` | Value of one parameter; secrets (`password`, `token`, `dsn`, …) are masked |
+
+Requires `nette/di` ≥ 3.2.7 (`Container::getServiceDescriptors()`). Only runtime data is
+available: compile-time facts such as factory expressions and setup calls are not.
+
 ### Router
 
 | Tool | Description |
