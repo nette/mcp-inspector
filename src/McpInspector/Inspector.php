@@ -50,6 +50,7 @@ final class Inspector
 			$compiler->addExtension('presenters', new Presenters\PresentersExtension);
 			$compiler->addExtension('router', new Router\RouterExtension);
 			$compiler->addExtension('database', new Database\DatabaseExtension);
+			$compiler->addExtension('di', new DI\ContainerExtension);
 			if (is_file($configFile)) {
 				try {
 					$compiler->loadConfig($configFile);
