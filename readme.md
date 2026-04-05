@@ -76,6 +76,16 @@ on SQLite), so the database itself rejects anything the validator would miss; ot
 the validator alone. With `readOnly: false`
 any statement runs. Values of columns whose names suggest secrets (`password`, `token`, …) are masked.
 
+### Tracy
+
+| Tool | Description |
+|------|-------------|
+| `tracy_get_log` | Newest entries of a log by level (`exception` by default, `error`, `warning`, …), each with the name of its report |
+| `tracy_get_report` | An exception report as Tracy 2.12+ writes it for agents: markdown with the code around the exception, the stack trace with arguments and the environment |
+
+The log directory is the one the application's Tracy logger writes to; nothing to configure.
+Requires `tracy/tracy` ≥ 2.12 for the markdown reports (older HTML-only reports cannot be read).
+
 ## Setup
 
 ```bash
