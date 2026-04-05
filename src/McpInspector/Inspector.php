@@ -51,6 +51,7 @@ final class Inspector
 			$compiler->addExtension('router', new Router\RouterExtension);
 			$compiler->addExtension('database', new Database\DatabaseExtension);
 			$compiler->addExtension('di', new DI\ContainerExtension);
+			$compiler->addExtension('tracy', new Tracy\TracyExtension);
 			if (is_file($configFile)) {
 				try {
 					$compiler->loadConfig($configFile);
