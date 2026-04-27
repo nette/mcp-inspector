@@ -17,6 +17,7 @@ use Psr\Http\Message\StreamFactoryInterface;
 class ServerFactory
 {
 	protected const BuiltInToolkits = [
+		Toolkits\DIToolkit::class,
 	];
 
 

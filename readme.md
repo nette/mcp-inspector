@@ -22,6 +22,20 @@ composer require nette/mcp-inspector
 
 After installation, restart Claude Code session to activate the MCP server.
 
+## Available Tools
+
+### DI Container
+
+| Tool | Description |
+|------|-------------|
+| `di_get_services` | List all registered services as name → type, filterable |
+| `di_get_service` | Get details of a specific service (type, tags, instantiation status) |
+| `di_get_parameter_names` | List all parameter names (nested values flattened to dotted notation) |
+| `di_get_parameter` | Read a single parameter by name (sensitive masking, Windows path normalization) |
+| `di_get_aliases` | List service aliases as alias → canonical name map |
+| `di_find_by_tag` | Find services by tag |
+| `di_find_by_type` | Find services implementing a type/interface (with autowired flag) |
+
 ## Configuration
 
 The inspector requires a single file in your project root: **`mcp-bootstrap.php`**.
