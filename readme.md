@@ -217,6 +217,30 @@ If not using the Nette plugin, add to your project's `.mcp.json`:
 `--project` is recommended over relying on the host's working directory — some MCP
 clients spawn the server with an unpredictable cwd.
 
+## TracyLogger — JSON Log Export (optional)
+
+`TracyLogger` is a standalone Tracy logger for structured JSON output. **Not used by
+MCP-Inspector itself** — opt-in for projects that want machine-readable logs:
+
+```php
+use Nette\McpInspector\TracyLogger;
+
+// In Bootstrap.php or configuration
+Tracy\Debugger::setLogger(new TracyLogger());
+```
+
+Logs are written to `log/mcp_telemetry.jsonl` in JSON Lines format:
+
+```json
+{"timestamp":"2025-01-16T10:30:00+00:00","level":"error","type":"exception","class":"RuntimeException","message":"...","file":"...","line":42}
+```
+
+Features:
+- Structured JSON format for easy parsing
+- Automatic sensitive data masking (passwords, tokens, API keys)
+- File rotation (max 10MB, keeps 5 rotated files)
+- Full exception details including stack trace
+
 ## Security
 
 - All tools are **read-only** — no data modification
