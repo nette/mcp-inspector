@@ -36,6 +36,35 @@ After installation, restart Claude Code session to activate the MCP server.
 | `di_find_by_tag` | Find services by tag |
 | `di_find_by_type` | Find services implementing a type/interface (with autowired flag) |
 
+### Database
+
+| Tool | Description |
+|------|-------------|
+| `db_get_tables` | List all database tables |
+| `db_get_columns` | Get columns of a specific table (types, nullable, primary key, foreign keys) |
+| `db_get_relationships` | Get foreign key relationships between all tables (belongsTo, hasMany) |
+| `db_get_indexes` | Get indexes for a table |
+| `db_explain_query` | Run EXPLAIN on a SELECT query (read-only, safe) |
+| `db_generate_entity` | Generate PHP entity class code for a table |
+
+### Router
+
+| Tool | Description |
+|------|-------------|
+| `router_get_routes` | List all registered routes with masks and defaults |
+| `router_match_url` | Match URL to presenter/action (e.g., "/article/123") |
+| `router_generate_url` | Generate URL for presenter/action (e.g., "Article:show") |
+
+### Tracy Debugger
+
+| Tool | Description |
+|------|-------------|
+| `tracy_get_last_exception` | Get last logged exception with details |
+| `tracy_get_exceptions` | List recent exception files |
+| `tracy_get_exception` | Get full details of a specific exception by HTML filename |
+| `tracy_get_warnings` | Get recent PHP warnings |
+| `tracy_get_log` | Get entries from any Tracy log level |
+
 ## Configuration
 
 The inspector requires a single file in your project root: **`mcp-bootstrap.php`**.

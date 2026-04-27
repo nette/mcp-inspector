@@ -18,6 +18,9 @@ class ServerFactory
 {
 	protected const BuiltInToolkits = [
 		Toolkits\DIToolkit::class,
+		Toolkits\DatabaseToolkit::class,
+		Toolkits\RouterToolkit::class,
+		Toolkits\TracyToolkit::class,
 	];
 
 
