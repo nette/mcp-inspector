@@ -15,6 +15,15 @@ database schema and logs.
 |------|-------------|
 | `app_get_info` | PHP and Nette versions, installed Nette packages, directories and database driver; the agent is told to call it first |
 
+### Presenters
+
+| Tool | Description |
+|------|-------------|
+| `presenter_get_presenters` | The presenter mapping and the presenters found on disk with their actions |
+| `presenter_get_presenter` | One presenter: class, actions, signals, components, persistent parameters, templates |
+
+Presenters are looked up in the Composer PSR-4 directories of the mapped namespaces and in `%appDir%`.
+
 ## Setup
 
 ```bash

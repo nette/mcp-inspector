@@ -20,6 +20,7 @@
 		"nette/utils": "^4.1"
 	},
 	"require-dev": {
+		"nette/application": "^3.3",
 		"nette/tester": "^2.5",
 		"phpstan/phpstan": "^2.1",
 		"phpstan/extension-installer": "^1.4",
