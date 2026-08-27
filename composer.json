@@ -20,6 +20,7 @@
 		"nette/utils": "^4.1"
 	},
 	"require-dev": {
+		"nette/application": "^3.3",
 		"nette/database": "^3.2.1",
 		"nette/http": "^3.3",
 		"nette/tester": "^2.5",
