@@ -10,7 +10,6 @@ use Nette\McpInspector\Router\RouterToolkit;
 use Nette\McpInspector\Server;
 use Tester\Assert;
 
-
 require __DIR__ . '/../bootstrap.php';
 
 

@@ -10,7 +10,6 @@ use Nette\McpInspector\DI\Schemas\Service;
 use Nette\McpInspector\Inspector;
 use Tester\Assert;
 
-
 require __DIR__ . '/../bootstrap.php';
 
 
@@ -69,7 +68,10 @@ test('a single service, created state and unknown names', function () use ($tool
 
 	// through the server, the result is the JSON object the client sees
 	$result = callTool($container->getByType(Nette\McpInspector\Server::class), 'di_get_service', ['name' => 'logger']);
-	Assert::same(['name' => 'logger', 'type' => Logger::class, 'autowired' => true, 'tags' => ['monitor' => true], 'aliases' => [], 'created' => false], $result);
+	Assert::same([
+		'name' => 'logger', 'type' => Logger::class, 'autowired' => true, 'tags' => ['monitor' => true], 'aliases' => [],
+		'created' => false,
+	], $result);
 });
 
 

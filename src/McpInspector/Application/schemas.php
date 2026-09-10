@@ -8,18 +8,16 @@ namespace Nette\McpInspector\Application\Schemas;
  */
 final class AppInfo
 {
-	/**
-	 * @param  string  $php  PHP version
-	 * @param  ?string  $nette  version of nette/application (or nette/di), null when unknown
-	 * @param  array<string, string>  $packages  Nette family packages from composer.lock, name => version
-	 * @param  array<string, string>  $directories  rootDir, appDir, wwwDir, tempDir, vendorDir, logDir when known
-	 * @param  ?string  $database  PDO driver of the application's database connection (mysql, pgsql, sqlite…), null without a database
-	 */
 	public function __construct(
+		/** PHP version */
 		public readonly string $php,
+		/** version of nette/application (or nette/di), null when unknown */
 		public readonly ?string $nette,
+		/** @var array<string, string> Nette family packages from composer.lock, name => version */
 		public readonly array $packages,
+		/** @var array<string, string> rootDir, appDir, wwwDir, tempDir, vendorDir, logDir when known */
 		public readonly array $directories,
+		/** PDO driver of the application's database connection (mysql, pgsql, sqlite…), null without a database */
 		public readonly ?string $database,
 	) {
 	}

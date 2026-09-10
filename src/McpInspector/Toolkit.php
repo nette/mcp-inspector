@@ -12,5 +12,5 @@ interface Toolkit
 	 * Whether the inspected application provides what the toolkit needs (e.g. a database connection).
 	 * Unavailable toolkits are left out of the server without an error.
 	 */
-	public function isAvailable(): bool;
+	function isAvailable(): bool;
 }

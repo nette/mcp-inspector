@@ -12,7 +12,6 @@ use Nette\McpInspector\Toolkit;
 use Nette\Utils\FileSystem;
 use Tester\Assert;
 
-
 require __DIR__ . '/bootstrap.php';
 
 

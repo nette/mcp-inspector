@@ -8,14 +8,12 @@ namespace Nette\McpInspector\Presenters\Schemas;
  */
 final class Presenter
 {
-	/**
-	 * @param  string  $name  presenter name with module (Admin:Article)
-	 * @param  list<string>  $actions  actions from action* and render* methods
-	 */
 	public function __construct(
+		/** presenter name with module (Admin:Article) */
 		public readonly string $name,
 		public readonly string $class,
 		public readonly string $file,
+		/** @var list<string> actions from action* and render* methods */
 		public readonly array $actions,
 	) {
 	}
@@ -27,12 +25,10 @@ final class Presenter
  */
 final class PresenterList
 {
-	/**
-	 * @param  array<string, string>  $mapping  module => class mask, as in `application: mapping:`
-	 * @param  list<Presenter>  $presenters
-	 */
 	public function __construct(
+		/** @var array<string, string> module => class mask, as in `application: mapping:` */
 		public readonly array $mapping,
+		/** @var list<Presenter> */
 		public readonly array $presenters,
 		public readonly int $count,
 	) {
@@ -45,21 +41,19 @@ final class PresenterList
  */
 final class PresenterDetail
 {
-	/**
-	 * @param  list<string>  $actions  actions from action* and render* methods
-	 * @param  list<string>  $signals  signals from handle* methods
-	 * @param  list<string>  $components  components from createComponent* methods
-	 * @param  list<string>  $persistentParams
-	 * @param  list<string>  $templates  template files of the presenter's directory
-	 */
 	public function __construct(
 		public readonly string $name,
 		public readonly string $class,
 		public readonly string $file,
+		/** @var list<string> actions from action* and render* methods */
 		public readonly array $actions,
+		/** @var list<string> signals from handle* methods */
 		public readonly array $signals,
+		/** @var list<string> components from createComponent* methods */
 		public readonly array $components,
+		/** @var list<string> */
 		public readonly array $persistentParams,
+		/** @var list<string> template files of the presenter's directory */
 		public readonly array $templates,
 	) {
 	}

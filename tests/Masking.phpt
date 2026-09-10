@@ -7,17 +7,22 @@
 use Nette\McpInspector\Masking;
 use Tester\Assert;
 
-
 require __DIR__ . '/bootstrap.php';
 
 
 $masking = new Masking;
 
-foreach (['password', 'db_password', 'dbPassword', 'PASSWORD', 'DB_PASSWORD', 'secret', 'token', 'authToken', 'auth_token', 'auth', 'apiKey', 'api_key', 'apikey', 'API_KEY', 'credentials', 'dsn', 'database.default.dsn', 'pass', 'SMTP_PASS'] as $key) {
+foreach ([
+	'password', 'db_password', 'dbPassword', 'PASSWORD', 'DB_PASSWORD', 'secret', 'token', 'authToken', 'auth_token', 'auth', 'apiKey',
+	'api_key', 'apikey', 'API_KEY', 'credentials', 'dsn', 'database.default.dsn', 'pass', 'SMTP_PASS',
+] as $key) {
 	Assert::true($masking->shouldMask($key), $key);
 }
 
-foreach (['author', 'author_id', 'authorName', 'AUTHOR_ID', 'tokenizer', 'connections_count', 'connection', 'name', 'id', 'cacheKey', 'key', 'secretary', 'bypass'] as $key) {
+foreach ([
+	'author', 'author_id', 'authorName', 'AUTHOR_ID', 'tokenizer', 'connections_count', 'connection', 'name', 'id', 'cacheKey', 'key',
+	'secretary', 'bypass',
+] as $key) {
 	Assert::false($masking->shouldMask($key), $key);
 }
 
@@ -40,11 +45,11 @@ Assert::same(<<<'TXT'
 	"author" => "john"
 	$options = ['token' => '***']
 	TXT, $masking->maskText(<<<'TXT'
-	| Key | Value |
-	| DB_PASSWORD | s3cret |
-	| DB_USER | root |
-	password: hunter2
-	'apiKey' => 'abc-123',
-	"author" => "john"
-	$options = ['token' => 'xyz']
-	TXT));
+		| Key | Value |
+		| DB_PASSWORD | s3cret |
+		| DB_USER | root |
+		password: hunter2
+		'apiKey' => 'abc-123',
+		"author" => "john"
+		$options = ['token' => 'xyz']
+		TXT));

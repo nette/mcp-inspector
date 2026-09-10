@@ -6,13 +6,13 @@ use Mcp\Capability\Attribute\McpTool;
 use Mcp\Schema\ToolAnnotations;
 use Nette\Database\Connection;
 use Nette\McpInspector\AppContainer;
+use Nette\McpInspector\Application\Schemas\AppInfo;
 use Nette\McpInspector\Toolkit;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Json;
 use Tracy\ILogger;
 use Tracy\Logger;
 use function is_array, is_string;
-use Nette\McpInspector\Application\Schemas\AppInfo;
 
 
 /**

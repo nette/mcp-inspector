@@ -8,15 +8,15 @@ use Mcp\Exception\ToolCallException;
 use Mcp\Schema\ToolAnnotations;
 use Nette\DI\ServiceDescriptor;
 use Nette\McpInspector\AppContainer;
-use Nette\McpInspector\Masking;
-use Nette\McpInspector\Toolkit;
-use function array_key_exists, count, in_array, is_array, is_scalar;
 use Nette\McpInspector\DI\Schemas\Parameter;
 use Nette\McpInspector\DI\Schemas\ParameterList;
 use Nette\McpInspector\DI\Schemas\Service;
 use Nette\McpInspector\DI\Schemas\ServiceList;
 use Nette\McpInspector\DI\Schemas\ServicesByTag;
 use Nette\McpInspector\DI\Schemas\ServicesByType;
+use Nette\McpInspector\Masking;
+use Nette\McpInspector\Toolkit;
+use function array_key_exists, count, is_array, is_scalar;
 
 
 /**
@@ -81,7 +81,7 @@ class ContainerToolkit implements Toolkit
 	{
 		$container = $this->app->get();
 		foreach ($container->getServiceDescriptors() as $descriptor) {
-			if ($descriptor->name === $name || in_array($name, $descriptor->aliases, strict: true)) {
+			if ($descriptor->name === $name || in_array($name, $descriptor->aliases, true)) {
 				return self::describe($descriptor);
 			}
 		}

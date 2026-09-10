@@ -8,12 +8,12 @@ use Mcp\Exception\ToolCallException;
 use Mcp\Schema\ToolAnnotations;
 use Nette\McpInspector\Masking;
 use Nette\McpInspector\Toolkit;
-use Nette\McpInspector\UntrustedData;
-use Nette\Utils\FileSystem;
-use function array_slice, count, strlen;
 use Nette\McpInspector\Tracy\Schemas\Log;
 use Nette\McpInspector\Tracy\Schemas\LogEntry;
 use Nette\McpInspector\Tracy\Schemas\Report;
+use Nette\McpInspector\UntrustedData;
+use Nette\Utils\FileSystem;
+use function count, strlen;
 
 
 /**

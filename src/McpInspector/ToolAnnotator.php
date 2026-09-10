@@ -11,5 +11,5 @@ use Mcp\Schema\ToolAnnotations;
  */
 interface ToolAnnotator
 {
-	public function annotateTool(string $name, ToolAnnotations $annotations): ToolAnnotations;
+	function annotateTool(string $name, ToolAnnotations $annotations): ToolAnnotations;
 }

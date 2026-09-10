@@ -14,7 +14,7 @@ use Mcp\Server as McpServer;
 use Mcp\Server\Session\InMemorySessionStore;
 use Mcp\Server\Session\Session;
 use Mcp\Server\Transport\StdioTransport;
-use function array_keys, sprintf;
+use function sprintf;
 
 
 /**
@@ -40,16 +40,14 @@ final class Server
 	private ?McpServer $server = null;
 
 
-	/**
-	 * @param  list<Toolkit>  $toolkits
-	 * @param  list<string>  $disabledTools  tool names or fnmatch() patterns
-	 * @param  string  $instructions  appended to the built-in instructions
-	 */
 	public function __construct(
 		private readonly ToolCallHandler $handler,
+		/** @var list<Toolkit> */
 		private readonly array $toolkits,
 		private readonly bool $enabled = true,
+		/** @var list<string> tool names or fnmatch() patterns */
 		private readonly array $disabledTools = [],
+		/** appended to the built-in instructions */
 		private readonly string $instructions = '',
 	) {
 		$this->registry = new Registry;

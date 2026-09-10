@@ -5,10 +5,10 @@ namespace Nette\McpInspector\Cli;
 use Mcp\Exception\ToolCallException;
 use Nette\CommandLine\Parser;
 use Nette\McpInspector\Inspector;
+use Nette\McpInspector\Server;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
-use function array_slice, count, is_array;
-use Nette\McpInspector\Server;
+use function count, is_array;
 
 
 /**
@@ -107,7 +107,7 @@ final class Console
 
 		try {
 			$result = $this->createServer($projectDir, $args)->call($tool, $arguments);
-		} catch (ToolCallException | \InvalidArgumentException $e) {
+		} catch (ToolCallException|\InvalidArgumentException $e) {
 			$result = ['error' => $e->getMessage()];
 		}
 

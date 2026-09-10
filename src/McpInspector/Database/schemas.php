@@ -18,10 +18,8 @@ final class Table
  */
 final class TableList
 {
-	/**
-	 * @param  list<Table>  $tables
-	 */
 	public function __construct(
+		/** @var list<Table> */
 		public readonly array $tables,
 		public readonly int $count,
 	) {
@@ -44,17 +42,15 @@ final class ColumnRef
 
 final class Column
 {
-	/**
-	 * @param  string  $type  native database type
-	 * @param  ?ColumnRef  $foreignKey  the column this one references, if it is a foreign key
-	 */
 	public function __construct(
 		public readonly string $name,
+		/** native database type */
 		public readonly string $type,
 		public readonly bool $nullable,
 		public readonly mixed $default,
 		public readonly bool $primary,
 		public readonly bool $autoincrement,
+		/** the column this one references, if it is a foreign key */
 		public readonly ?ColumnRef $foreignKey,
 	) {
 	}
@@ -66,13 +62,11 @@ final class Column
  */
 final class ColumnList
 {
-	/**
-	 * @param  list<Column>  $columns
-	 * @param  ?list<string>  $primaryKey  columns of the primary key, null when the table has none
-	 */
 	public function __construct(
 		public readonly string $table,
+		/** @var list<Column> */
 		public readonly array $columns,
+		/** @var ?list<string> columns of the primary key, null when the table has none */
 		public readonly ?array $primaryKey,
 	) {
 	}
@@ -81,10 +75,8 @@ final class ColumnList
 
 final class Relationship
 {
-	/**
-	 * @param  string  $type  belongsTo (from holds the foreign key) or hasMany (its inverse)
-	 */
 	public function __construct(
+		/** belongsTo (from holds the foreign key) or hasMany (its inverse) */
 		public readonly string $type,
 		public readonly ColumnRef $from,
 		public readonly ColumnRef $to,
@@ -98,10 +90,8 @@ final class Relationship
  */
 final class RelationshipList
 {
-	/**
-	 * @param  list<Relationship>  $relationships
-	 */
 	public function __construct(
+		/** @var list<Relationship> */
 		public readonly array $relationships,
 		public readonly int $count,
 	) {
@@ -111,13 +101,11 @@ final class RelationshipList
 
 final class Index
 {
-	/**
-	 * @param  list<string>  $columns
-	 */
 	public function __construct(
 		public readonly string $name,
 		public readonly bool $unique,
 		public readonly bool $primary,
+		/** @var list<string> */
 		public readonly array $columns,
 	) {
 	}
@@ -129,11 +117,9 @@ final class Index
  */
 final class IndexList
 {
-	/**
-	 * @param  list<Index>  $indexes
-	 */
 	public function __construct(
 		public readonly string $table,
+		/** @var list<Index> */
 		public readonly array $indexes,
 		public readonly int $count,
 	) {
@@ -146,16 +132,14 @@ final class IndexList
  */
 final class QueryResult
 {
-	/**
-	 * @param  list<array<string, mixed>>  $rows  column => value; secrets replaced by ***
-	 * @param  int  $count  number of rows returned
-	 * @param  ?int  $affectedRows  for statements without a result set
-	 * @param  ?string  $truncated  present when the result was cut at the row limit
-	 */
 	public function __construct(
+		/** @var list<array<string, mixed>> column => value; secrets replaced by *** */
 		public readonly array $rows,
+		/** number of rows returned */
 		public readonly int $count,
+		/** for statements without a result set */
 		public readonly ?int $affectedRows,
+		/** present when the result was cut at the row limit */
 		public readonly ?string $truncated,
 	) {
 	}
@@ -167,11 +151,9 @@ final class QueryResult
  */
 final class QueryPlan
 {
-	/**
-	 * @param  list<array<string, mixed>>  $plan  rows of EXPLAIN as the driver returns them
-	 */
 	public function __construct(
 		public readonly string $query,
+		/** @var list<array<string, mixed>> rows of EXPLAIN as the driver returns them */
 		public readonly array $plan,
 	) {
 	}

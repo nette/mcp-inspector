@@ -17,7 +17,7 @@ use Nette\McpInspector\Presenters\Schemas\PresenterList;
 use Nette\McpInspector\Toolkit;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Finder;
-use function array_keys, count, is_array, is_string;
+use function count, is_array, is_string;
 
 
 /**
@@ -130,7 +130,10 @@ class PresenterToolkit implements Toolkit
 				foreach ($autoloader[0]->getPrefixesPsr4() as $prefix => $dirs) {
 					$prefix = rtrim($prefix, '\\');
 					foreach ($namespaces as $namespace) {
-						if (str_starts_with($namespace . '\\', $prefix . '\\') || str_starts_with($prefix . '\\', $namespace . '\\')) {
+						if (
+							str_starts_with($namespace . '\\', $prefix . '\\')
+							|| str_starts_with($prefix . '\\', $namespace . '\\')
+						) {
 							$directories = [...$directories, ...$dirs];
 						}
 					}

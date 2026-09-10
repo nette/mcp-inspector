@@ -8,16 +8,14 @@ namespace Nette\McpInspector\Router\Schemas;
  */
 final class Route
 {
-	/**
-	 * @param  string  $type  class of the router
-	 * @param  ?string  $prefix  module prefix the route lives under (Admin:), null at the top level
-	 * @param  ?string  $mask  URL mask, null for routers without one
-	 * @param  ?string  $presenter  default presenter including the module prefix
-	 */
 	public function __construct(
+		/** class of the router */
 		public readonly string $type,
+		/** module prefix the route lives under (Admin:), null at the top level */
 		public readonly ?string $prefix,
+		/** URL mask, null for routers without one */
 		public readonly ?string $mask,
+		/** default presenter including the module prefix */
 		public readonly ?string $presenter,
 		public readonly ?string $action,
 	) {
@@ -30,10 +28,8 @@ final class Route
  */
 final class RouteList
 {
-	/**
-	 * @param  list<Route>  $routes  in matching order
-	 */
 	public function __construct(
+		/** @var list<Route> in matching order */
 		public readonly array $routes,
 		public readonly int $count,
 	) {
@@ -46,16 +42,14 @@ final class RouteList
  */
 final class UrlMatch
 {
-	/**
-	 * @param  bool  $matched  false when no route handles the URL
-	 * @param  string  $url  the absolute URL that was matched
-	 * @param  array<string, mixed>  $params  parameters without presenter and action
-	 */
 	public function __construct(
+		/** false when no route handles the URL */
 		public readonly bool $matched,
+		/** the absolute URL that was matched */
 		public readonly string $url,
 		public readonly ?string $presenter,
 		public readonly ?string $action,
+		/** @var array<string, mixed> parameters without presenter and action */
 		public readonly array $params,
 	) {
 	}
@@ -67,11 +61,9 @@ final class UrlMatch
  */
 final class Link
 {
-	/**
-	 * @param  array<string, mixed>  $params
-	 */
 	public function __construct(
 		public readonly string $destination,
+		/** @var array<string, mixed> */
 		public readonly array $params,
 		public readonly string $url,
 	) {

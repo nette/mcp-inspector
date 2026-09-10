@@ -8,7 +8,6 @@ use Nette\DI\Definitions\Reference;
 use Nette\DI\Definitions\ServiceDefinition;
 use Nette\Schema\Expect;
 use Nette\Schema\Schema;
-use function array_keys, array_map;
 
 
 /**

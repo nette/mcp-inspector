@@ -8,18 +8,16 @@ namespace Nette\McpInspector\DI\Schemas;
  */
 final class Service
 {
-	/**
-	 * @param  ?bool  $autowired  true = autowiring may pick it, false = excluded, null = unknown
-	 * @param  array<string, mixed>  $tags  tag name => tag value
-	 * @param  list<string>  $aliases
-	 * @param  bool  $created  whether the instance has already been created in this process
-	 */
 	public function __construct(
 		public readonly string $name,
 		public readonly ?string $type,
+		/** true = autowiring may pick it, false = excluded, null = unknown */
 		public readonly ?bool $autowired,
+		/** @var array<string, mixed> tag name => tag value */
 		public readonly array $tags,
+		/** @var list<string> */
 		public readonly array $aliases,
+		/** whether the instance has already been created in this process */
 		public readonly bool $created,
 	) {
 	}
@@ -31,13 +29,11 @@ final class Service
  */
 final class ServiceList
 {
-	/**
-	 * @param  list<Service>  $services
-	 * @param  ?string  $filter  the substring the services were filtered by
-	 */
 	public function __construct(
+		/** @var list<Service> */
 		public readonly array $services,
 		public readonly int $count,
+		/** the substring the services were filtered by */
 		public readonly ?string $filter,
 	) {
 	}
@@ -49,14 +45,12 @@ final class ServiceList
  */
 final class ServicesByType
 {
-	/**
-	 * @param  list<Service>  $services
-	 * @param  ?string  $autowired  name of the service autowiring picks for this type; null when none or ambiguous
-	 */
 	public function __construct(
 		public readonly string $type,
+		/** @var list<Service> */
 		public readonly array $services,
 		public readonly int $count,
+		/** name of the service autowiring picks for this type; null when none or ambiguous */
 		public readonly ?string $autowired,
 	) {
 	}
@@ -68,11 +62,9 @@ final class ServicesByType
  */
 final class ServicesByTag
 {
-	/**
-	 * @param  list<Service>  $services
-	 */
 	public function __construct(
 		public readonly string $tag,
+		/** @var list<Service> */
 		public readonly array $services,
 		public readonly int $count,
 	) {
@@ -85,13 +77,11 @@ final class ServicesByTag
  */
 final class ParameterList
 {
-	/**
-	 * @param  list<string>  $names  dotted paths of the leaf values
-	 * @param  ?string  $note  explanation when the list is empty
-	 */
 	public function __construct(
+		/** @var list<string> dotted paths of the leaf values */
 		public readonly array $names,
 		public readonly int $count,
+		/** explanation when the list is empty */
 		public readonly ?string $note,
 	) {
 	}
@@ -103,11 +93,9 @@ final class ParameterList
  */
 final class Parameter
 {
-	/**
-	 * @param  mixed  $value  the value, secrets replaced by ***
-	 */
 	public function __construct(
 		public readonly string $name,
+		/** the value, secrets replaced by *** */
 		public readonly mixed $value,
 	) {
 	}
