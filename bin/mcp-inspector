@@ -29,4 +29,4 @@ if ($projectAutoload) {
 	require $projectAutoload;
 }
 
-exit((new Nette\McpInspector\Cli\Console)->run($_SERVER['argv']));
+exit((new Nette\McpInspector\Cli\Application)->run($_SERVER['argv']));

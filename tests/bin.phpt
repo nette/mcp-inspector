@@ -17,6 +17,7 @@ require __DIR__ . '/bootstrap.php';
 function runBin(array $args, array $env = []): array
 {
 	$command = array_map('escapeshellarg', [PHP_BINARY, __DIR__ . '/../bin/mcp-inspector', ...$args]);
+	$env += ['NO_COLOR' => '1']; // a FORCE_COLOR in the environment would add escape sequences to the messages
 	$process = proc_open(implode(' ', $command), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, null, $env + getenv());
 	$stdout = stream_get_contents($pipes[1]);
 	$stderr = stream_get_contents($pipes[2]);
@@ -30,17 +31,20 @@ $project = createTestProject();
 Assert::same(0, $code);
 Assert::contains('Usage: mcp-inspector', $out);
 
-[$code, , $err] = runBin(['frobnicate']);
+// errors go to stderr, stdout stays clean for the protocol
+[$code, $out, $err] = runBin(['frobnicate']);
 Assert::same(1, $code);
-Assert::same("Unknown command 'frobnicate'.\n", $err);
+Assert::same("Unknown command `frobnicate`.\n", $err);
+Assert::same('', $out);
 
 [$code, $out] = runBin(['call', 'nope', "--project=$project"]);
 Assert::same(1, $code);
 Assert::contains("Unknown tool 'nope'.", $out);
 
-[$code, , $err] = runBin(['call', 'nope', '{broken', "--project=$project"]);
+[$code, $out, $err] = runBin(['call', 'nope', '{broken', "--project=$project"]);
 Assert::same(1, $code);
 Assert::contains('Invalid JSON arguments', $err);
+Assert::same('', $out);
 
 [$code, , $err] = runBin(['call', 'nope', "--project=$project"], ['MCP_INSPECTOR_DISABLED' => '1']);
 Assert::same(1, $code);
