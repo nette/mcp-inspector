@@ -3,11 +3,4 @@ parameters:
 
 	paths:
 		- src
-		- bin/mcp-inspector
 
-	ignoreErrors:
-		# ToolCallHandler catches exceptions the decorated SDK handler really throws at runtime, but
-		# its interface under-declares @throws, so PHPStan flags the typed catches as dead.
-		-
-			identifier: catch.neverThrown
-			path: src/McpInspector/ToolCallHandler.php

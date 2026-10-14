@@ -1,0 +1,24 @@
+use:
+	- nette
+	- modernizations
+
+typeAnalysis: phpstan
+
+paths:
+	- src
+	- tests
+
+excludePaths:
+	- tests/**/output
+
+fileExtensions:
+	- php
+	- phpt
+
+overrides:
+	-
+		paths: [src]
+		nameResolution: certain
+		use:
+			- compilerOptimizations
+			- deprecations
