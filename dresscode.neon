@@ -1,0 +1,15 @@
+use:
+	- nette
+	- modernizations
+
+typeAnalysis: phpstan
+
+paths:
+	- tests
+
+excludePaths:
+	- tests/**/output
+
+fileExtensions:
+	- php
+	- phpt
