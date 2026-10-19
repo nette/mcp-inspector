@@ -6,9 +6,7 @@ use Mcp\Exception\ToolCallException;
 use Nette\CommandLine\Attributes as Cli;
 use Nette\CommandLine\Command;
 use Nette\CommandLine\Console;
-use Nette\CommandLine\HelpRenderer;
-use Nette\CommandLine\ParseException;
-use Nette\CommandLine\Parser;
+use Nette\CommandLine\Runner;
 use Nette\McpInspector\Inspector;
 use Nette\McpInspector\Server;
 use Nette\Utils\Json;
@@ -40,26 +38,15 @@ final class Application
 	 */
 	public function run(array $argv): int
 	{
-		try {
-			$args = (new Parser)->parse($this->defineCommandLine(), array_slice($argv, 1));
-			if ($args['--help']) {
-				(new HelpRenderer($this->out))->render($args->command);
-				return 0;
-			}
-
-			return $args->run();
-
-		} catch (ParseException|\RuntimeException $e) { // a wrong command line, configuration and bootstrap problems, reported without a stack trace
-			$this->err->writeLine($e->getMessage(), 'red');
-			return 1;
-		}
+		// configuration and bootstrap problems are reported without a stack trace
+		$runner = new Runner($this->defineCommandLine(), errorExitCode: 1, out: $this->out, err: $this->err);
+		return $runner->run(array_slice($argv, 1));
 	}
 
 
 	private function defineCommandLine(): Command
 	{
 		$program = Command::from($this->serve(...));
-		$program->addFlag('--help', 'Show this help and exit', alias: '-h', standalone: true);
 		$program->addCommandFrom($this->init(...));
 		$program->addCommandFrom($this->call(...));
 		$program->addText("Without a command it starts the MCP server (stdio). The project must contain mcp-bootstrap.php\nthat returns a configured Nette\\Bootstrap\\Configurator; `init` generates it. The script is responsible\nfor requiring its own autoloader.");
