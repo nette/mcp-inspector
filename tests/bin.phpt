@@ -33,8 +33,8 @@ Assert::contains('Usage: mcp-inspector', $out);
 
 // errors go to stderr, stdout stays clean for the protocol
 [$code, $out, $err] = runBin(['frobnicate']);
-Assert::same(1, $code);
-Assert::same("Unknown command `frobnicate`.\n", $err);
+Assert::same(2, $code);
+Assert::match("Error: Unknown command `frobnicate`.\n\nUsage: mcp-inspector %A%", $err);
 Assert::same('', $out);
 
 [$code, $out] = runBin(['call', 'nope', "--project=$project"]);
