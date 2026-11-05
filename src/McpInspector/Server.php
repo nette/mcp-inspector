@@ -74,7 +74,17 @@ final class Server
 	 */
 	public function run(): void
 	{
-		$this->build()->run(new StdioTransport);
+		// fgets() on a pipe silent for about 13.5 hours reports a false EOF on Windows, which would end the server
+		$this->build()->run(new class extends StdioTransport {
+			protected function processInput(): void
+			{
+				$read = [STDIN];
+				$write = $except = null;
+				if (stream_select($read, $write, $except, 0, 50000) > 0) {
+					parent::processInput();
+				}
+			}
+		});
 	}
 
 
@@ -130,6 +140,8 @@ final class Server
 		if ($this->server === null) {
 			$builder = McpServer::builder()
 				->setServerInfo('Nette MCP Inspector', self::resolveVersion())
+				// a stdio session lasts as long as the process, the idle run loop would expire it after an hour
+				->setSession(new InMemorySessionStore(ttl: PHP_INT_MAX))
 				->setInstructions($this->getInstructions())
 				->setRegistry($this->registry)
 				->setReferenceHandler($this->handler);
